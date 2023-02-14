@@ -1,5 +1,7 @@
 import datetime
 import re
+import maskpass
+import base64
 stud_data=[]
 def stud_register():
 
@@ -17,7 +19,7 @@ def stud_register():
     }
     stud_fname=input("Enter First Name: ")
     stud_lname=input("Enter Last Name: ")
-    stud_subs=list(input("Enter your Subjects: "))
+    stud_subs=list[input("Enter your Subjects: ")]
     stud_class=int(input("Enter Class of student: "))
     stud_bdate = input("Type your Date of birth (ie.10/11/2011) : ")
 
@@ -33,19 +35,22 @@ def stud_register():
     age = current_year - birth_date.year
 
 #Email Validation    
-    def email_validation(stud_email):
+    def email_validation():
         stud_email=input("Enter Email: ")
         reg_exp = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
         if re.match(reg_exp,stud_email):
             print("Valid email ")
         else:
             print("Invalid Email please enter a valid email address \n")
-    res = email_validation()
+        return stud_email
+    res=email_validation()
   
     #Password Validation
    
     def password_check():
-        passwd=input("Enter your password")
+        passwd=maskpass.askpass(prompt="Enter Password" ,mask="*")
+        encpwd = base64.b64encode(passwd.encode("utf-8"))
+        decpwd=base64.b64decode(encpwd).decode("utf-8")
         spcChar =['$', '@', '#', '%','*','^','(',')']
         val = True
      
@@ -70,13 +75,15 @@ def stud_register():
             val  = False
          
         elif not any(char in spcChar for char in passwd):
-            print('Password should have at least one of the symbols $@#')
+            print('Password should have at least one of the symbols $@#%*^()')
             val = False
 
         else:
-            return passwd
+            return encpwd
         
-
+        
+        
+    
     res1=password_check()
 
     stud_ind_data["fname"]=stud_fname
@@ -97,7 +104,8 @@ def stud_register():
 #Login Function
 def login():
     inp_email=input("Enter your email:").strip()
-    inp_passwd=input("Enter your password:").strip()
+    inp_passwd=maskpass.askpass(prompt="Enter Your Password" ,mask="*")
+    
     for i in stud_data:
         if inp_email==i['email'] and inp_passwd==i['password']:
             #if email and password matches with existing email and password
