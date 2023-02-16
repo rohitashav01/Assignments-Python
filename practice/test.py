@@ -1,3 +1,4 @@
+"""
 class Emp:
     def __init__(self,fname,lname,salary):
         self.fname=fname
@@ -24,3 +25,24 @@ if __name__ == '__main__':
     print(emp1)
     print(emp2)
     print(repr(emp1+emp2))
+"""
+
+class Math:
+    """
+    class Math
+    Calculate circle area and circumference
+    """
+    PI=3.14
+    def __init__(self,radius):
+        self.radius=radius
+    
+    def calculate_area(self):
+        return Math.PI*self.radius*self.radius
+
+    def circumference_of_cir(self):
+        return 2*self.PI*self.radius
+if __name__=='__main__':
+    circle=Math(20)
+    print(circle.calculate_area())
+    circle.PI=3.141592653589793238
+    print(circle.circumference_of_cir())
