@@ -46,6 +46,7 @@ if __name__=='__main__':
 
 #Using args
 class Calculate:
+    
     """
     this class contains function 
     to calculte sum
