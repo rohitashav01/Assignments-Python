@@ -165,4 +165,4 @@ class TeamLeader(TeamMember, Worker):
       Worker.__init__(self, pay, jobtitle)
       print("Name: {},ID: {}, Pay: {},Role:{}, Exp: {} years".format(self.name,self.uid, self.pay,self.jobtitle, self.exp))
 
-TL = TeamLeader('Mark', 10001, 250000, 'Developer', 5)
+tl = TeamLeader('Mark', 10001, 250000, 'Developer', 5)
