@@ -20,9 +20,9 @@ def sum(a,b):
 print(__name__)
 
 
-if __name__=='__main__':
-    show()
-    res=sum(10,20)
-    print(res)
+
+show()
+res=sum(10,20)
+print(res)
 
    
