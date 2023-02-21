@@ -8,12 +8,9 @@ class Employee:
             return cls._name
         else:
             raise Exception('class can have only one object')
-
-
-
+            
 obj1=Employee()
 print(obj1)
-
 
 #obj2=Employee()
 #print(obj2)
