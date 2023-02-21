@@ -50,7 +50,6 @@ def stud_register():
     def password_check():
         passwd=maskpass.askpass(prompt="Enter Password" ,mask="*")
         encpwd = base64.b64encode(passwd.encode("utf-8"))
-        decpwd=base64.b64decode(encpwd).decode("utf-8")
         spcChar =['$', '@', '#', '%','*','^','(',')']
         val = True
      
