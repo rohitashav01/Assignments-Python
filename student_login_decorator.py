@@ -1,16 +1,14 @@
 import datetime
-import re
+#import re
 import maskpass
 import base64
+
 stud_data=[]
-
-
-    
 
 #Email Validation    
 def email_validation(func):
-    def inner(stud_email):
-        stud_email=input("Enter Email: ")
+    
+    def inner(stud_fname,stud_lname,stud_subs,stud_class,stud_email,*args,**kwargs):
         print(stud_email)
         if not "@" in stud_email:
             print("Invalid email")
@@ -19,16 +17,15 @@ def email_validation(func):
             print(stud_email[-4:])
             print("Invalid email2")
             raise Exception("Invalid Email")
-        return func(stud_email)
+        return func(stud_fname,stud_lname,stud_subs,stud_class,stud_email,*args,**kwargs)
     return inner
-res1=email_validation()
-  
+
 #Password Validation
-   
+
 def is_password_valid(min_length):
     def inner(func):
-            def sub_inner(passwd):
-                passwd=maskpass.askpass(prompt="Enter Password" ,mask="*")
+            def sub_inner(stud_fname,stud_lname,stud_subs,stud_class,stud_email,passwd,*args,**kwargs):
+                
                 #encpwd = base64.b64encode(passwd.encode("utf-8"))
                 spcChar =['$', '@', '#', '%','*','^','(',')']
                 val = True
@@ -58,15 +55,13 @@ def is_password_valid(min_length):
                     val = False
                 if val:
                     return val
-                return func(passwd)
-            return sub_inner()
-    return inner()
+                return func(stud_fname,stud_lname,stud_subs,stud_class,stud_email,passwd,*args,**kwargs)
+            return sub_inner
+    return inner
     
-res2=is_password_valid()
-
 @email_validation
 @is_password_valid(min_length=6)
-def stud_register(stud_fname,stud_lname,stud_subs,stud_class):
+def stud_register(stud_fname,stud_lname,stud_subs,stud_class,stud_email,passwd,stud_bdate):
 
     
     stud_ind_data= {
@@ -81,28 +76,8 @@ def stud_register(stud_fname,stud_lname,stud_subs,stud_class):
 
     }
 
-    stud_fname=input("Enter First Name: ")
-    stud_lname=input("Enter Last Name: ")
-    stud_subs=list[input("Enter your Subjects: ")]
-    stud_class=int(input("Enter Class of student: "))
-    #stud_bdate = input("Type your Date of birth (ie.10/11/2011) : ")
-
-    stud_ind_data["fname"]=stud_fname
-    stud_ind_data["lname"]=stud_lname
-    stud_ind_data["subjects"]=stud_subs
-    stud_ind_data["class"]=stud_class
-    stud_ind_data["dob"]=result
-    stud_ind_data["age"]=result
-    stud_ind_data["email"]=res1
-    stud_ind_data["password"]=res2
-    stud_data.append(stud_ind_data)
-
+    #DOB Validation
     
-    return stud_data
-
-#DOB Validation
-def date_of_birth():
-    stud_bdate = input("Type your Date of birth (ie.10/11/2011) : ")
     day, month, year = map(int,stud_bdate.split('/'))
     birth_date = datetime.date(year, month, day)
     current_year = datetime.datetime.now().year
@@ -113,9 +88,20 @@ def date_of_birth():
     # current age based on entered DOB  
     age = current_year - birth_date.year
     print(age)
-    return stud_bdate
 
-result=date_of_birth()
+    stud_ind_data["fname"]=stud_fname
+    stud_ind_data["lname"]=stud_lname
+    stud_ind_data["subjects"]=stud_subs
+    stud_ind_data["class"]=stud_class
+    stud_ind_data["dob"]=stud_bdate
+    stud_ind_data["age"]=stud_bdate
+    stud_ind_data["email"]=stud_email
+    stud_ind_data["password"]=passwd
+    stud_data.append(stud_ind_data)
+    res = stud_data
+    print(res)
+
+
     
 #Login Function
 def login():
@@ -180,5 +166,12 @@ while True:
         res=login()
         print(res)
     elif i==2:
-        res=stud_register()
+        stud_fname=input("Enter First Name: ")
+        stud_lname=input("Enter Last Name: ")
+        stud_subs=list[input("Enter your Subjects: ")]
+        stud_class=int(input("Enter Class of student: "))
+        stud_email=input("Enter your email: ")
+        passwd=maskpass.askpass(prompt="Enter Password" ,mask="*")
+        stud_bdate = input("Type your Date of birth (ie.10/11/2011) : ")
+        res=stud_register(stud_fname,stud_lname,stud_subs,stud_class,stud_email,passwd,stud_bdate)
         print(res)
