@@ -1,8 +1,19 @@
-import random
+import os
 import csv
+import uuid
 
 def generate_uuid():
-        return random.randint(0,10000)
+    return uuid.uuid4()
+
+def primary_key(func):
+        roll_no = 0
+        def wrapper(*args, **kwargs):
+            nonlocal roll_no
+            roll_no += 1
+            return func(*args,pk=roll_no)
+        return wrapper
+
+
 
 class Person(object):
     
@@ -13,55 +24,62 @@ class Person(object):
         self.phone_number = phone_number
         self.uuid = generate_uuid()
     
+    @primary_key
+    def set_user(self,pk=None):
+        header = ['Primary Key','First Name','Last Name','email','phone number','uuid']
+        data = {'Primary Key':pk,'First Name':self.first_name,'Last Name':self.last_name,'email':self.email,'phone number':self.phone_number,'uuid':self.uuid}
+        if os.path.isfile('user.csv'):
+            with open('mvc/user.csv', 'a', newline='') as my_file:
+                w = csv.DictWriter(my_file, fieldnames = header)
+                w.writerow(data)
+        else:
+            with open('mvc/user.csv', 'w', newline='') as my_file:
+                    w = csv.DictWriter(my_file, fieldnames = header)
+                    w.writeheader()
+                    w.writerow(data)
     
-    def set_user(self):
-        header = ['First Name','last_name','email','phone_number','uuid']
-        with open('mvc/user.csv','w+',encoding='UTF8',newline='') as f:
-            print('hello world')
-            writer = csv.writer(f)
-            writer.writerow(header)
-    
-        data = [self.first_name,self.last_name,self.email,self.phone_number,self.uuid]
-        with open('mvc/user.csv','a+',encoding='UTF8',newline='') as f:
-            print('hello world')
-            writer = csv.writer(f)
-            writer.writerow(data)
-        
-
     def initials(self):
         return self.first_name[0]+"."+self.last_name[0]
-    
-  
 
-
-"""  
     @classmethod
-    #returns all people inside db.txt as list of Person objects
-    def getAll(cls):
-        database = open('grades.csv', 'r')
+    def getAllUser(cls):
+        values = open('mvc/user.csv', 'r')
         result = []
-        reader = csv.DictReader(database)
-        field = reader.fieldnames
-        for row in reader:
+        read = csv.DictReader(values)
+        field = read.fieldnames
+        for row in read:
             result.extend([{field[i]:row[field[i]] for i in range(len(field))}])
         return result
 
-"""
-fname=input("Enter First Name: ")
-lname=input("enter Last name")
-mail=input("enter mail")
-number=int(input("Enter Number:"))
-obj = Person(first_name=fname,last_name=lname,email=mail,phone_number=number)
-obj.set_user()
 
-"""
-header = ['Name','area','country_code','Geographical Location']
+class Blog(object):
+    def __init__(self,date,topic):
+        #self.user=user
+        self.b_id = generate_uuid()
+        self.date = date
+        self.topic = topic
+        #self.person = Person()
+    
+    def set_blog(self):
+        header = ['ID','Date','Topic']
+        data = {'ID':self.b_id,'Date':self.date,'Topic':self.topic}
+        if os.path.isfile('blog.csv'):
+            with open('mvc/blog.csv', 'a', newline='') as my_file:
+                w = csv.DictWriter(my_file, fieldnames= header)
+                w.writerow(data)
+        else:
+            with open('mvc/blog.csv', 'w', newline='') as my_file:
+                    w = csv.DictWriter(my_file, fieldnames = header)
+                    w.writeheader()
+                    w.writerow(data)
+    
+    @classmethod
+    def getAllBlog(cls):
+        values = open('mvc/blog.csv', 'r')
+        result = []
+        read = csv.DictReader(values)
+        field = read.fieldnames
+        for row in read:
+            result.extend([{field[i]:row[field[i]] for i in range(len(field))}])
+        return result
 
-data = ['India',44550,'IND','North of Equator']
-
-with open('mvc\countries.csv','w',encoding='UTF8',newline='') as f:
-    writer = csv.writer(f)
-    writer.writerow(header)
-    writer.writerow(data)
-
-"""
