@@ -1,4 +1,4 @@
-from build_practice1 import *
+from build_practice1 import Screen,Processor,Fcamera,Laptop
 
 class LaptopBuilder:
     def add_screen(self):
