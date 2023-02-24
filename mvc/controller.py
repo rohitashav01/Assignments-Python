@@ -49,7 +49,8 @@ def showBlog():
 
 if __name__ == "__main__":
 #running controller function
-    start()
-    enterBlogData()
-    showBlog()
-    showData()
+    while True:
+        start()
+        enterBlogData()
+        showBlog()
+        showData()
