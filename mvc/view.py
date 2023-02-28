@@ -1,3 +1,4 @@
+import csv
 from model import Person
 from model import Blog
 
@@ -25,14 +26,9 @@ def showView():
 
 #Blog Data
 
-def enterBlog():
-   print("Do you want to enter the blog data?(y/n)")
-
 def inputBlog():
-   
    bdate=input("Enter Date of Release: ")
    btopic=input("Enter Topic of Blog: ")
-   #buser= showInput()
    obj2 = Blog(date = bdate,topic=btopic)
    obj2.set_blog()
 
@@ -44,7 +40,24 @@ def showAllBlog(list):
 def seeBlog():
    print("Do you want to see the Blog Data")
 
+#Getting all the blogs of the user
+def userBlog():
+   x = input("Enter the First Name of user whose blog you want to see: ")
+   var = open('C:/Users/rohitashav.pathak/Assignments-Python/mvc/blog.csv', 'r', newline='')
+   w = csv.DictReader(var)
+   demo = open('C:/Users/rohitashav.pathak/Assignments-Python/mvc/user.csv', 'r', newline='')
+   r = csv.DictReader(demo)
+   for i in r :
+         if x == i['First Name']:
+            print(i)
+            for j in w:
+               if i['Primary Key'] == j['Primary Key']:
+                  print(j)
+         else:
+            print("User does not exist")
 
 def endView():
    print('Goodbye!')
+
+
             

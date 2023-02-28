@@ -42,3 +42,94 @@ for rows in w:
     print(rows['Primary Key'])
 
 """
+
+# a = 'abc'
+# #returns true or false whether the string contains the specified argument
+# #print(dir(a))
+# hash_value = hash(a)
+# print(hash_value)
+# print(a.__contains__('d'))
+
+# #print(a.__doc__)
+# # class Human():
+# #     def __init__(self):
+# #         pass
+# #     def age(self):
+# #         print("age=20")
+
+# # a = Human()
+# # a.age()
+# # print(a.__doc__)
+
+# # eq --> Used to equate two objects
+# # gt --> greater than -- used to compare two objects
+# # ge --> greater than or equal to
+# # hash --> used to return the hash value of an object
+
+# class Person:
+
+#     def __init__(self, first_name, last_name, age, salary):
+#         self.first_name = first_name
+#         self.last_name = last_name
+#         self.age = age
+#         self.salary = salary
+
+#     def __eq__(self, other):
+#         return self.age == other.age
+    
+#     def __gt__(self,other):
+#         return self.salary > other.salary
+    
+# john = Person('John', 'Doe', 25,30000)
+# jane = Person('Jane', 'Doe', 27,29000)
+# x = Person.__delattr__(john.age)
+# print(john)
+# print(john == jane)  # True
+# print(john > jane)
+# #format --> 
+# x = 32
+# print(format(x,'f'))
+
+# #iter
+# lst = ['a','b','c','d','e','f']
+# iter_list = iter(lst)
+# #print(dir(lst))
+
+# print(next(iter_list))
+# print(next(iter_list))
+
+# # format_map : used to return a dictionary's key value
+
+# a = {'x':'John', 'y':'Wick'}
+# print("{x}'s last name is {y}".format_map(a))
+# print("{} oseof {}".format(a))
+
+# tup = ('hello','world')
+# print(dir(tup))
+# print((1).__ne__(2))
+
+
+# lst = [1,2,3,4,5]
+
+# a = [x for x in lst if x%2==0]
+# print(a)
+
+
+
+
+# a = '123456789'
+
+# b = a[0]
+# c = a[-1]
+# d = ''
+# e = a[1:-1]
+# print(c+e+b)
+
+# #output : 923456781
+
+
+# n=10
+# for i in range(1, 6):
+#     print(' '*n, end='') # repet space for n times
+#     print('* '*(i)) # repeat stars for i times
+#     n-=1

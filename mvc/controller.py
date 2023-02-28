@@ -30,12 +30,19 @@ def reprBlog():
     return view.showAllBlog(blog_in_db)
 
 def enterBlogData():
-    view.enterBlog()
-    inp_blog_data = str(input())
-    if inp_blog_data == 'y':
-        return view.inputBlog()
+    inp = input("Do you want to enter the blog data?(y/n)")
+    val = True
+    if inp == 'y':
+        view.inputBlog()
+        if val:
+            inp_again = input('Do you want to add  another blog: (y/n)')
+            if inp_again == 'y':
+                return view.inputBlog()
+            else:
+                return showBlog()        
     else:
         return reprBlog()
+        
 
 
 def showBlog():
@@ -46,6 +53,12 @@ def showBlog():
     else:
         return showAll()
 
+def showUserBlog():
+    inp = input("Do you want to see the blogs of a particular user(y/n)")
+    if inp == 'y':
+        return view.userBlog()
+    else:
+        return view.endView()
 
 if __name__ == "__main__":
 #running controller function
@@ -54,3 +67,5 @@ if __name__ == "__main__":
         enterBlogData()
         showBlog()
         showData()
+        showUserBlog()
+
