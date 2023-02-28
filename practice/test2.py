@@ -83,3 +83,40 @@ print(obj1)
 #print(obj2)
 
 """
+
+# lst = [2,3,6,6,5]
+# new = set(lst)
+# print(new)
+# new_lst = list(new)
+# max_item = max(new_lst)
+# new_lst.remove(max_item)
+
+# print(max(new_lst))
+
+s = 'AAABCADDE'
+k = 3
+
+n = len(s)
+var = int(n/k)
+
+# a = s[0:var]
+# print(a)
+# x = var+var
+# b = s[var:x]
+# print(b)
+
+# y = x+var
+# c = s[x:y]
+# print(c)
+
+temp = 0
+for i in range(0,var):
+    sub = s[temp:var]
+    temp = var
+    var = temp+var
+    print(sub)
+
+    new = list(sub)
+    new_d = set(new)
+    print(new_d)
+
